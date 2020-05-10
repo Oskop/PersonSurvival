@@ -11,8 +11,9 @@ public class Health : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		_currentHealth = _maximumHealth;
-		GameObject ss = GameObject.Find("ObyekMusuh");
-		musuhAudio = ss.GetComponent<AudioSource>();
+		GetComponent<Health> ().Damage (100);
+		// GameObject ss = GameObject.Find("ObyekMusuh");
+		// musuhAudio = ss.GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -24,8 +25,21 @@ public class Health : MonoBehaviour {
 		_currentHealth -= damageValue;
 		if (_currentHealth <= 0)
 		{
-			musuhAudio.Play();
-			Destroy (gameObject);
+			// musuhAudio.Play();
+			// Destroy (gameObject);
+			Animation anim = GetComponentInChildren<Animation> ();
+			anim.Stop ();
+
+			Destroy (GetComponent<PlayerMovement> ());
+			Destroy (GetComponent<PlayerAnimation> ());
+
+			Destroy (GetComponent<EnemyMovement> ());
+			Destroy (GetComponent<CharacterController> ());
+
+			Ragdoll r = GetComponent<Ragdoll> ();
+			if (r != null) {
+				r.onDeath ();
+			}
 		}
 	}
 }
