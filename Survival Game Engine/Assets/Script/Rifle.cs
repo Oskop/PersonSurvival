@@ -8,14 +8,14 @@ public class Rifle : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Screen.lockCursor = true;
+		// Screen.lockCursor = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKey (KeyCode.K)){
-			Screen.lockCursor = false;
-		}
+		// if (Input.GetKey (KeyCode.K)){
+		// 	Screen.lockCursor = false;
+		// }
 		// Ray mouseRay = Camera.main.ViewportPointToRay (new Vector3 (0.5f, 0.5f, 0));
 		// RaycastHit hitInfo;
 		// if (Physics.Raycast(mouseRay, out hitInfo))
@@ -24,7 +24,7 @@ public class Rifle : MonoBehaviour {
 		// }
 
 		if (Input.GetButtonDown("Fire1")){
-			Screen.lockCursor = true;
+			// Screen.lockCursor = true;
 			Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
 			RaycastHit hitInfo;
 			if (Physics.Raycast(mouseRay, out hitInfo)){ 
