@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/SurvivalGameEngineScene.unity
+- path: Assets/MainMenuGame.unity
   isLoaded: 1
   isActive: 1
