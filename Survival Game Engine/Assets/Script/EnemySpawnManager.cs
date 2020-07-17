@@ -30,7 +30,15 @@ public class EnemySpawnManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameManager.HasPlayerWon) {
+		if (GameManager.HasPlayerWon || PlayerHealth._currentHealth <0) {
+			GameObject[] obj = GameObject.FindGameObjectsWithTag("ObyekMusuh");
+			foreach (GameObject o in obj){
+				Animation anim = o.GetComponentInChildren<Animation>();
+				anim.Stop();
+				Destroy(o.GetComponent<EnemyMovement>());
+				Destroy(o.GetComponent<EnemyAttack>());
+				Destroy(o.GetComponent<CharacterController>());
+			}
 			Destroy(this);
 			return;
 		}

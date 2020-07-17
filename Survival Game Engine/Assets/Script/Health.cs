@@ -7,6 +7,14 @@ public class Health : MonoBehaviour {
 	[SerializeField]
 	int _maximumHealth = 100;
 	int _currentHealth = 0;
+
+	[SerializeField]
+	AudioClip[] _hitSound;
+
+	[SerializeField]
+	AudioClip _deathSound;
+
+
 	Renderer _renderer;
 
 	public bool isDeath() {
@@ -36,14 +44,34 @@ public class Health : MonoBehaviour {
 
 	public void Damage(int damageValue){
 		_currentHealth -= damageValue;
-		if (_currentHealth <= 0)
+		if (_currentHealth < 0)
 		{
+			_currentHealth = 0;
+		} else {
+			if (_hitSound != null && _hitSound.Length > 0){
+				AudioSource audio = GetComponent<AudioSource>();
+				AudioClip soundToUse = _hitSound [Random.Range (0, _hitSound.Length)];
+				audio.clip = soundToUse;
+				audio.Play();
+			}
+		}
+
+		if (_currentHealth == 0) {
+			if (_hitSound != null){
+				AudioSource audio = GetComponent<AudioSource>();
+				audio.clip = _deathSound;
+				audio.Play();
+			}
 			// musuhAudio.Play();
 			// Destroy (gameObject);
 			Animation anim = GetComponentInChildren<Animation> ();
 			anim.Stop ();
 
 			_playerStats.ZombieKilled++;
+
+			EnemyDrops ed = GetComponent<EnemyDrops>();
+			ed.onDeath();
+
 			EnemySpawnManager.onEnemyDeath();
 			Destroy (GetComponent<EnemyMovement>());
 			Destroy (GetComponent<EnemyAttack>());
@@ -52,10 +80,6 @@ public class Health : MonoBehaviour {
 
 			// Destroy (GetComponent<PlayerMovement> ());
 			// Destroy (GetComponent<PlayerAnimation> ());
-
-			EnemySpawnManager.onEnemyDeath();
-			Destroy (GetComponent<EnemyMovement> ());
-			Destroy (GetComponent<CharacterController> ());
 
 			Ragdoll r = GetComponent<Ragdoll> ();
 			if (r != null) {

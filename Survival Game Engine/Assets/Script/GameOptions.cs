@@ -61,6 +61,8 @@ public class GameOptions : MonoBehaviour {
 		GUI.DrawTexture( new Rect (280, 140, _titleSound.width, _titleSound.height), _titleSound );
 		_soundVolume = GUI.HorizontalSlider(new Rect (280, 220, Screen.width - 490, 20), _soundVolume, 0.0f, 1.0f);
 
+		PlayerPrefs.SetFloat("SoundVolume", _soundVolume);
+
 		if (GUI.Button(new Rect (Screen.width - 30 - _ok.width - 10, Screen.height - 30 - _ok.height - 10, _ok.width, _ok.height), _ok)) {
 			Close();
 			
