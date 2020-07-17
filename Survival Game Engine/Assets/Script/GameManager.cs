@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 	[SerializeField]
-	float _secondsToWin = 180.0f;
+	float _secondsToWin = 60.0f;
 
 	static bool _hasPlayerWon = false;
 	public static bool HasPlayerWon{
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 		_playerHealth = player.GetComponent<PlayerHealth>();
 	}
 
-	void CheckWin(){
+	void Checkwin(){
 		if (!_playerHealth.isDeath()) {
 			_hasPlayerWon = true;
 		}
